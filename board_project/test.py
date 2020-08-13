@@ -1,3 +1,4 @@
+
 def test_post_list_view(self):
     response =self.client.get(reverse("home"))
     self.assertEqual(response.status_code, 200)
@@ -11,5 +12,4 @@ def test_post_detail_view(self):
     self.assertEqual(no_response.status_code, 404)
     self.assertContains(response,"A good title")
     self.assertTemplateUsed(response,"post_detail.html")
-
 

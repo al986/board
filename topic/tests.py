@@ -21,3 +21,23 @@ class BoardTests(TestCase):
         self.assertEqual(f"{self.post.title}","A good title")      
         self.assertEqual(f"{self.post.author}","testuser")
         self.assertEqual(f"{self.post.body}","Nice body content")
+
+    def test_post_creat_view(self):
+        response = self.Client.post(
+            reverse("post_new"),
+            {"title":"New title","body" :"New text","auther" :self.user}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response,"New title")
+        self.assertContains(response,"Next title")
+
+    def test_post_update_view(self):
+        response = self.Client.post( 
+                reverse("post_edit" args ="1"),
+            {"title":"Updte title","body" :"Updte text",},
+        )   
+        self.assertEqual(response.status_code, 302)
+
+    def test_post_delete_view(self):
+        response = self.Client.get(reverse("post_delete" args ="1")) 
+        self.assertEqual(response.status_code, 200)
